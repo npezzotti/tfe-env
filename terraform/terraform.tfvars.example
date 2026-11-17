@@ -1,0 +1,5 @@
+vpc_id            = "<VPC_ID>"
+subnet_id         = "<SUBNET_ID>"
+ssh_allowed_cidrs = ["<CIDR>"]
+key_name          = "<KEY_NAME>"
+route53_zone_name = "<ROUTE53_ZONE_NAME>"

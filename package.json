@@ -1,0 +1,43 @@
+{
+  "name": "tfe-env",
+  "version": "0.1.0",
+  "description": "A wp-env-inspired CLI for spinning up a local Terraform Enterprise (FDO) environment using Docker.",
+  "bin": {
+    "tfe-env": "bin/tfe-env.js"
+  },
+  "main": "dist/cli.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node bin/tfe-env.js",
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --import tsx --test \"test/**/*.test.ts\""
+  },
+  "dependencies": {
+    "@aws-sdk/client-route-53": "^3.1161.0",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "acme-client": "^5.4.0",
+    "chalk": "^6.0.1",
+    "commander": "^15.0.0",
+    "dockerode": "^5.0.1",
+    "ms": "^2.1.3",
+    "node-forge": "^1.4.0",
+    "ora": "^9.4.1",
+    "pretty-ms": "^10.0.0",
+    "proper-lockfile": "^4.1.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/dockerode": "^4.0.2",
+    "@types/ms": "^2.1.0",
+    "@types/node": "^20.19.43",
+    "@types/node-forge": "^1.3.14",
+    "@types/proper-lockfile": "^4.1.4",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  }
+}

@@ -5,7 +5,6 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 import { envOverridesInEffect, loadConfig, tryLoadConfig } from '../../src/config/loader.js';
-import type { TfeEnvConfig } from '../../src/config/schema.js';
 
 const ENV_KEYS = [
   'TFE_ENV_IMAGE',

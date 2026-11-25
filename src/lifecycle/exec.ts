@@ -16,7 +16,7 @@ export async function execTfeContainer(cmd: string[], opts: ExecLifecycleOptions
 
   const containerName = readState()?.containerName;
   if (!containerName) {
-    throw new Error("Container is not running. Run 'tfe-env start' to start Terraform Enterprise.");
+    throw new Error("Terraform Enterprise environment does not exist. Run 'tfe-env start' to start Terraform Enterprise.");
   }
 
   await checkDockerRunning();
@@ -26,7 +26,7 @@ export async function execTfeContainer(cmd: string[], opts: ExecLifecycleOptions
     throw new Error(`Container '${containerName}' does not exist.`);
   }
   if (status !== 'running') {
-    throw new Error(`Container '${containerName}' is not running (status ${status}).`);
+    throw new Error(`Terraform Enterprise environment is stopped. Run 'tfe-env start' to start Terraform Enterprise.`);
   }
 
   return execInContainer(containerName, cmd, opts);

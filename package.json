@@ -12,9 +12,9 @@
   },
   "scripts": {
     "start": "node bin/tfe-env.js",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
     "dev": "tsx src/cli.ts",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p test/tsconfig.json",
     "test": "node --import tsx --test \"test/**/*.test.ts\""
   },
   "dependencies": {

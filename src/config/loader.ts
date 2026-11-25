@@ -31,7 +31,7 @@ function activeEnvOverrides(env = process.env): { key: string; envVar: string; v
     .map(([key, envVar]) => ({ key, envVar, value: env[envVar] }))
     .filter((o):
       o is { key: string; envVar: (typeof ENV_VAR_MAP)[keyof typeof ENV_VAR_MAP]; value: string } => {
-      return o.value !== undefined && o.value !== '';
+      return o.value !== undefined && o.value.trim() !== '';
     })
 }
 
@@ -50,7 +50,7 @@ export function envOverridesInEffect(): string[] {
  */
 function applyEnvOverrides(config: Record<string, unknown>): Record<string, unknown> {
   activeEnvOverrides().forEach((o) => {
-    config[o.key] = o.value;
+    config[o.key] = o.value.trim();
   });
 
   return config;

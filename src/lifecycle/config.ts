@@ -1,7 +1,8 @@
 import { loadConfig } from '../config/loader.js';
+import { TfeEnvConfig } from '../config/schema.js';
 import { resolveConfigPath } from '../config/util.js';
 
-export async function showConfig(edit: boolean, configPath: string): Promise<void> {
+export async function showConfig(edit: boolean, configPath?: string): Promise<TfeEnvConfig> {
   if (edit) {
     configPath = resolveConfigPath(configPath);
     const editor = process.env.EDITOR || 'vi';
@@ -10,10 +11,8 @@ export async function showConfig(edit: boolean, configPath: string): Promise<voi
     const editorCommand = editorArgs.shift()!;
     const res = childProcess.spawnSync(editorCommand, [...editorArgs, configPath], { stdio: 'inherit' });
     res.status !== 0 && process.exit(res.status);
-    return;
+    return loadConfig({ configPath });
   }
 
-  const config = loadConfig({ configPath: configPath });
-  process.stdout.write(JSON.stringify(config, null, 2));
-  process.stdout.write('\n');
+  return loadConfig({ configPath });
 }

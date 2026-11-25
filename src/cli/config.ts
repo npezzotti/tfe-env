@@ -17,7 +17,11 @@ export function registerConfigCommand(program: Command): void {
       const opts = this.optsWithGlobals<ConfigOptions>();
       const logger = createLogger(opts.debug);
       try {
-        await showConfig(opts.edit ?? false, opts.config ?? '');
+        const config = await showConfig(opts.edit ?? false, opts.config ?? '');
+        if (!opts.edit) {
+          process.stdout.write(JSON.stringify(config, null, 2));
+          process.stdout.write('\n');
+        }
       } catch (err) {
         logger.error(`Failed to retrieve configuration: ${err instanceof Error ? err.message : String(err)}`);
       }

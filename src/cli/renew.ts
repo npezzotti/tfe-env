@@ -3,6 +3,7 @@ import type { GlobalOptions } from './types.js';
 import { renewTfeEnvCert } from '../lifecycle/renew.js';
 import { createLogger } from '../util/logger.js';
 import ora from 'ora';
+import { withLock } from '../lock.js';
 
 export function registerRenewCommand(program: Command): void {
   program
@@ -13,7 +14,7 @@ export function registerRenewCommand(program: Command): void {
       const logger = createLogger(opts.debug);
       const spinner = ora("Renewing Terraform Enterprise certificate").start();
       try {
-        await renewTfeEnvCert(logger);
+        await withLock('renew', () => renewTfeEnvCert(logger));
         spinner.succeed("Successfully renewed Terraform Enterprise certificate")
       } catch (err) {
         spinner.fail(`Failed to renew: ${err instanceof Error ? err.message : String(err)}`);
